@@ -444,7 +444,7 @@ Zlib.Unzip.prototype.parseFileHeader = function() {
 Zlib.Unzip.prototype.getFileHeaderAttribute = function(filename, attributename) {
   
   /** @type {Array.<Zlib.Unzip.FileHeader>} */
-  var fileHeaderList = this.fileHeaderList;
+  var fileHeaderList = this.fileHeaderList; 
   /** @type {Zlib.Unzip.LocalFileHeader} */
   var localFileHeader;
   /** @type {number} */
