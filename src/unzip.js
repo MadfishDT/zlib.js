@@ -437,10 +437,11 @@ Zlib.Unzip.prototype.parseFileHeader = function() {
   this.filenameToIndex = filetable;
 };
 /**
- * @param {string} filename file nae to get header
- * @return {!(Zlib.Unzip.LocalFileHeader)} file hader data.
+ * @param {string} filename file name to get header
+ * @param {string} attributename zip file header attribute name
+ * @return {!(number)} file header attribute data.
  */
-Zlib.Unzip.prototype.getFileLocalHeader = function(filename) {
+Zlib.Unzip.prototype.getFileHeaderAttribute = function(filename, attributename) {
   
   /** @type {Array.<Zlib.Unzip.FileHeader>} */
   var fileHeaderList = this.fileHeaderList;
@@ -459,10 +460,30 @@ Zlib.Unzip.prototype.getFileLocalHeader = function(filename) {
     throw new Error('wrong index');
   }
 
-  offset = fileHeaderList[index].relativeOffset;
-  localFileHeader = new Zlib.Unzip.LocalFileHeader(this.input, offset);
-  localFileHeader.parse();
-  return localFileHeader;
+  switch(attributename) {
+    case 'needVersion': 
+    return fileHeaderList[index].needVersion;
+    case 'flags':
+    return fileHeaderList[index].flags;
+    case 'compression':
+    return fileHeaderList[index].compression;
+    case 'time':
+    return fileHeaderList[index].time;
+    case 'date':
+    return fileHeaderList[index].date;
+    case 'crc32':
+    return fileHeaderList[index].crc32;
+    case 'compressedSize':
+    return fileHeaderList[index].compressedSize;
+    case 'plainSize':
+    return fileHeaderList[index].plainSize;
+    case 'internalFileAttributes':
+    return fileHeaderList[index].internalFileAttributes;
+    case 'externalFileAttributes':
+    return fileHeaderList[index].externalFileAttributes;
+    default:
+    return 0;
+  }
 }
 /**
  * @param {number} index file header index.

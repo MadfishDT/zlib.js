@@ -10,8 +10,8 @@ goog.exportSymbol(
   Zlib.Unzip.prototype.getFilenames
 );
 goog.exportSymbol(
-  'Zlib.Unzip.prototype.getFileLocalHeader',
-  Zlib.Unzip.prototype.getFileLocalHeader
+  'Zlib.Unzip.prototype.getFileHeaderAttribute',
+  Zlib.Unzip.prototype.getFileHeaderAttribute
 );
 goog.exportSymbol(
   'Zlib.Unzip.prototype.setPassword',
