@@ -436,7 +436,34 @@ Zlib.Unzip.prototype.parseFileHeader = function() {
   this.fileHeaderList = filelist;
   this.filenameToIndex = filetable;
 };
+/**
+ * @param {string} filename file nae to get header
+ * @return {!(Zlib.Unzip.LocalFileHeader)} file hader data.
+ */
+Zlib.Unzip.prototype.getFileLocalHeader = function(filename) {
+  
+  /** @type {Array.<Zlib.Unzip.FileHeader>} */
+  var fileHeaderList = this.fileHeaderList;
+  /** @type {Zlib.Unzip.LocalFileHeader} */
+  var localFileHeader;
+  /** @type {number} */
+  var offset;
 
+  var index = this.filenameToIndex[filename];
+
+  if (!fileHeaderList) {
+    this.parseFileHeader();
+  }
+
+  if (fileHeaderList[index] === void 0) {
+    throw new Error('wrong index');
+  }
+
+  offset = fileHeaderList[index].relativeOffset;
+  localFileHeader = new Zlib.Unzip.LocalFileHeader(this.input, offset);
+  localFileHeader.parse();
+  return localFileHeader;
+}
 /**
  * @param {number} index file header index.
  * @param {Object=} opt_params
